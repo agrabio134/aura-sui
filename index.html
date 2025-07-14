@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="aura-sui.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA SUI</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto Mono', monospace;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .landing-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(100, 149, 237, 0.4), transparent);
+            z-index: 0;
+            animation: pulse 5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        .circuit-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/circuit-board.png');
+            opacity: 0.15;
+            z-index: 0;
+            animation: slideCircuit 15s linear infinite;
+        }
+
+        @keyframes slideCircuit {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 300px 300px;
+            }
+        }
+
+        .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #64b5f6;
+            text-shadow: 0 0 10px rgba(100, 149, 237, 0.8);
+            white-space: pre;
+            margin: 20px 0;
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .terminal {
+            background: #1c2526;
+            border: 2px solid #64b5f6;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            text-align: left;
+            color: #e0e0e0;
+            font-size: 1em;
+            line-height: 1.6;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
+            z-index: 1;
+            margin: 20px 0;
+        }
+
+        .terminal h2 {
+            color: #81c784;
+            margin: 0 0 15px;
+            font-size: 1.4em;
+            text-shadow: 0 0 8px rgba(129, 199, 132, 0.7);
+        }
+
+        .terminal p {
+            margin: 10px 0;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+        }
+
+        .feature h3 {
+            margin: 0 0 10px;
+            color: #81c784;
+            font-size: 1.2em;
+        }
+
+        .feature p {
+            font-size: 0.9em;
+            color: #b0bec5;
+        }
+
+        .coming-soon {
+            font-size: 1.3em;
+            color: #ffd54f;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: blink 1.3s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .grab-button,
+        .game-button {
+            background: linear-gradient(45deg, #64b5f6, #81c784, #ffd54f);
+            color: #fff;
+            padding: 18px 55px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(100, 149, 237, 0.6);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1;
+            position: relative;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .game-button {
+            background: linear-gradient(45deg, #ef5350, #ffd54f, #81c784);
+        }
+
+        .grab-button::before,
+        .game-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .grab-button:hover::before,
+        .game-button:hover::before {
+            left: 100%;
+        }
+
+        .grab-button:hover,
+        .game-button:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(100, 149, 237, 0.8);
+        }
+
+        .aura-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #81c784;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(129, 199, 132, 0.8);
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-80px);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+        }
+
+        .phone {
+            width: 360px;
+            height: 760px;
+            background: #000;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #111;
+            display: none;
+            margin: 20px auto;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .status-bar {
+            height: 24px;
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 12px;
+        }
+
+        .home-screen {
+            height: calc(100% - 24px);
+            background: url('https://pixewall.com/wp-content/uploads/2023/08/colorful-abstract-ai-art-iphone-wallpaper-4k-scaled.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            position: relative;
+        }
+
+        .time-widget {
+            text-align: center;
+            color: #fff;
+            font-size: 2.8em;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 15px 0;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 0 10px;
+            flex-grow: 1;
+        }
+
+        .app-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 0 10px;
+        }
+
+        .icon {
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .icon img {
+            width: 54px;
+            height: 54px;
+            border-radius: 10px;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .icon span {
+            display: block;
+            margin-top: 4px;
+            font-size: 10px;
+        }
+
+        .window {
+            position: absolute;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            width: 90%;
+            height: 80%;
+            top: 10%;
+            left: 5%;
+            z-index: 10;
+            animation: popUp 0.3s ease-out;
+        }
+
+        @keyframes popUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .window-header {
+            background: #eceff1;
+            padding: 8px;
+            border-bottom: 1px solid #cfd8dc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .window-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #263238;
+        }
+
+        .window-buttons button {
+            background: #ef5350;
+            border: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .window-content {
+            padding: 10px;
+            height: calc(100% - 34px);
+            overflow-y: auto;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .gallery-content img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .music-content,
+        .x-content,
+        .browser-content,
+        .notes-content,
+        .telegram-content,
+        .video-content,
+        .camera-content {
+            text-align: center;
+            color: #546e7a;
+            font-size: 12px;
+        }
+
+        .browser-content iframe,
+        .x-content iframe,
+        .telegram-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .notes-content textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="landing-page" id="landingPage">
+        <div class="circuit-bg"></div>
+        <pre class="ascii-art">
+          _    _ _____            
+     /\  | |  | |  __ \     /\    
+    /  \ | |  | | |__) |   /  \   
+   / /\ \| |  | |  _  /   / /\ \  
+  / ____ \ |__| | | \ \  / ____ \ 
+ /_/    \_\____/|_|  \_\/_/    \_\
+        </pre>
+        <div class="terminal">
+            <h2>$ aura-sui --system-status</h2>
+            <p>> Boot sequence initiated for AURA SUI core framework... [OK]. This platform orchestrates a
+                high-throughput ecosystem for immersive data interaction and networked synergy. AURA SUI embeds a
+                digital soul into your virtual operations, with *Aura Frenzy* as its flagship module—a pulse-pounding,
+                real-time experiential datastream. Without AURA SUI, your digital existence is a hollow shell, devoid of
+                resonant vitality.</p>
+            <div class="feature-list">
+                <div class="feature">
+                    <h3>> DataSync Notes</h3>
+                    <p>Persist transient data streams in a robust, query-optimized repository.</p>
+                </div>
+                <div class="feature">
+                    <h3>> VisualForge</h3>
+                    <p>Process raw captures through high-fidelity rendering pipelines for vibrant outputs.</p>
+                </div>
+                <div class="feature">
+                    <h3>> Hyperlink Navigator</h3>
+                    <p>Navigate global datastreams with a protocol stack optimized for user context.</p>
+                </div>
+                <div class="feature">
+                    <h3>> NexusLink</h3>
+                    <p>Execute low-latency data exchanges across distributed social matrices.</p>
+                </div>
+                <div class="feature">
+                    <h3>> InterfaceFlux</h3>
+                    <p>Engage a dynamic UI framework that recalibrates to user interaction vectors.</p>
+                </div>
+                <div class="feature">
+                    <h3>> Aura Frenzy</h3>
+                    <p>Unleash *Aura Frenzy*, a high-octane interactive module that redefines digital engagement.</p>
+                </div>
+            </div>
+            <p>> CA: SOON</p>
+        </div>
+        <button class="grab-button" onclick="grabPhone()">Initialize Mobile Interface</button>
+        <a href="https://aurafrenzy.netlify.app/public/"><button class="game-button">PLAY AURA FRENZY</button></a>
+    </div>
+    <div class="phone" id="phone">
+        <div class="status-bar">
+            <span id="currentTime">13:30</span>
+            <span>🔋 100%</span>
+        </div>
+        <div class="home-screen" id="homeScreen">
+            <div class="time-widget" id="timeWidget">13:30</div>
+            <div class="app-grid">
+                <div class="icon" id="telegramIcon" onclick="window.open('https://t.me/auraonsuiportal', '_blank')">
+                    <img src="https://img.icons8.com/material/64/ffffff/telegram-app.png" alt="Telegram">
+                    <span>Telegram</span>
+                </div>
+
+                <div class="icon" id="videoIcon" onclick="openWindow('video')">
+                    <img src="https://img.icons8.com/material/64/ffffff/video.png" alt="Video">
+                    <span>Video</span>
+                </div>
+                <div class="icon" id="cameraIcon" onclick="openWindow('camera')">
+                    <img src="https://img.icons8.com/material/64/ffffff/camera.png" alt="Camera">
+                    <span>Camera</span>
+                </div>
+                <div class="icon" id="notesIcon" onclick="openWindow('notes')">
+                    <img src="https://static.vecteezy.com/system/resources/previews/009/589/476/non_2x/notebook-icon-transparent-free-png.png"
+                        alt="Notes">
+                    <span>Notes</span>
+                </div>
+            </div>
+            <div class="app-row">
+                <div class="icon" id="galleryIcon" onclick="openWindow('gallery')">
+                    <img src="https://img.icons8.com/material/64/ffffff/gallery.png" alt="Gallery">
+                    <span>Gallery</span>
+                </div>
+                <div class="icon" id="musicIcon" onclick="openWindow('music')">
+                    <img src="https://img.icons8.com/material/64/ffffff/music--v1.png" alt="Music">
+                    <span>Music</span>
+                </div>
+                <div class="icon" id="xIcon" onclick="openWindow('x')">
+                    <img src="https://freelogopng.com/images/all_img/1690643591twitter-x-logo-png.png" alt="X">
+                    <span>X</span>
+                </div>
+                <div class="icon" id="browserIcon" onclick="openWindow('browser')">
+                    <img src="https://img.icons8.com/material/64/ffffff/chrome.png" alt="Browser">
+                    <span>Browser</span>
+                </div>
+            </div>
+
+            <div class="window" id="galleryWindow">
+                <div class="window-header">
+                    <span class="window-title">Gallery</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('gallery')"></button>
+                    </div>
+                </div>
+                <div class="window-content gallery-content">
+                    <img src="/photo_6314272623374223345_x.jpg" alt="Dummy Image 1">
+                    <img src="/photo_6314272623374223346_x.jpg" alt="Dummy Image 2">
+                    <img src="aura.jpg" alt="Dummy Image 3">
+                </div>
+            </div>
+            <div class="window" id="musicWindow">
+                <div class="window-header">
+                    <span class="window-title">Music</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('music')"></button>
+                    </div>
+                </div>
+                <div class="window-content music-content">
+                    <p>No audio streams available in current data partition.</p>
+                </div>
+            </div>
+            <div class="window" id="xWindow">
+                <div class="window-header">
+                    <span class="window-title">X</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('x')"></button>
+                    </div>
+                </div>
+                <div class="window-content x-content">
+                    <iframe src="https://x.com"></iframe>
+                </div>
+            </div>
+            <div class="window" id="browserWindow">
+                <div class="window-header">
+                    <span class="window-title">Browser</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('browser')"></button>
+                    </div>
+                </div>
+                <div class="window-content browser-content">
+                    <iframe src="https://www.google.com"></iframe>
+                </div>
+            </div>
+            <div class="window" id="telegramWindow">
+                <div class="window-header">
+                    <span class="window-title">Telegram</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('telegram')"></button>
+                    </div>
+                </div>
+                <div class="window-content telegram-content">
+                    <iframe src="https://t.me/auraonsuiportal"></iframe>
+                </div>
+            </div>
+            <div class="window" id="videoWindow">
+                <div class="window-header">
+                    <span class="window-title">Video</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('video')"></button>
+                    </div>
+                </div>
+                <div class="window-content video-content">
+                    <p>No video streams available in current data partition.</p>
+                </div>
+            </div>
+            <div class="window" id="cameraWindow">
+                <div class="window-header">
+                    <span class="window-title">Camera</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('camera')"></button>
+                    </div>
+                </div>
+                <div class="window-content camera-content">
+                    <p>Imaging module offline in current runtime environment.</p>
+                </div>
+            </div>
+            <div class="window" id="notesWindow">
+                <div class="window-header">
+                    <span class="window-title">Notes</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('notes')"></button>
+                    </div>
+                </div>
+                <div class="window-content notes-content">
+                    <textarea placeholder="Input data stream for persistent storage..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Initialize particles
+        function createParticles() {
+            const landingPage = document.getElementById('landingPage');
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'aura-particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 4}s`;
+                landingPage.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Update time widget
+        function updateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentTime').textContent = time;
+            document.getElementById('timeWidget').textContent = time;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        function grabPhone() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('phone').style.display = 'block';
+        }
+
+        function openWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'block';
+            window.style.zIndex = getMaxZIndex() + 1;
+        }
+
+        function closeWindow(id) {
+            const window = document.getElementById(`${id}Window`);
+            window.style.display = 'none';
+        }
+
+        function getMaxZIndex() {
+            const windows = document.querySelectorAll('.window');
+            let maxZ = 0;
+            windows.forEach(w => {
+                const z = parseInt(w.style.zIndex) || 0;
+                if (z > maxZ) maxZ = z;
+            });
+            return maxZ;
+        }
+
+        // Draggable windows
+        const windows = document.querySelectorAll('.window');
+        windows.forEach(win => {
+            const header = win.querySelector('.window-header');
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+
+            header.addEventListener('mousedown', e => {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+                isDragging = true;
+                win.style.zIndex = getMaxZIndex() + 1;
+            });
+
+            document.addEventListener('mousemove', e => {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    win.style.left = currentX + 'px';
+                    win.style.top = currentY + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            currentX = parseInt(win.style.left) || 0;
+            currentY = parseInt(win.style.top) || 0;
+        });
+    </script>
+</body>
+
+</html>
