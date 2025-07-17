@@ -89,7 +89,6 @@
         }
 
         @keyframes flicker {
-
             0%,
             100% {
                 opacity: 1;
@@ -150,6 +149,110 @@
         .feature p {
             font-size: 0.9em;
             color: #b0bec5;
+        }
+
+        .roadmap {
+            background: #1c2526;
+            border: 2px solid #64b5f6;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            width: 90%;
+            text-align: left;
+            color: #e0e0e0;
+            font-size: 1em;
+            line-height: 1.6;
+            box-shadow: 0 0 20px rgba(100, 149, 237, 0.5);
+            z-index: 1;
+            margin: 20px 0;
+        }
+
+        .roadmap h2 {
+            color: #81c784;
+            margin: 0 0 15px;
+            font-size: 1.4em;
+            text-shadow: 0 0 8px rgba(129, 199, 132, 0.7);
+        }
+
+        .roadmap-card-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .roadmap-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+            position: relative;
+        }
+
+        .roadmap-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .roadmap-card h3 {
+            margin: 0 0 10px;
+            color: #81c784;
+            font-size: 1.2em;
+            display: inline-block;
+        }
+
+        .phase-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: #64b5f6;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(100, 149, 237, 0.8);
+        }
+
+        .roadmap-card ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .roadmap-card li {
+            margin: 8px 0;
+            font-size: 0.9em;
+            color: #b0bec5;
+        }
+
+        .nft-slider {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            height: 150px;
+            position: relative;
+        }
+
+        .nft-slider img {
+            width: 120px;
+            height: 120px;
+            margin-right: 10px;
+            border-radius: 8px;
+            display: inline-block;
+            animation: slideNFTs 20s linear infinite;
+        }
+
+        @keyframes slideNFTs {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-3120px); /* 24 images * (120px width + 10px margin) */
+            }
         }
 
         .coming-soon {
@@ -480,7 +583,121 @@
                     <p>Unleash *Aura Frenzy*, a high-octane interactive module that redefines digital engagement.</p>
                 </div>
             </div>
-            <p>> CA: 0x81b2fd6ec0347d8a6bd8982ed034ea414a667b48587faeafce4a181cf781e825::aura::AURA</p>
+            <p>> CA: 0x81b2fd6ec0347d8a6bd8982ed034ea414<br>
+                a667b48587faeafce4a181cf781e825::aura::AURA</p>
+        </div>
+        <div class="roadmap">
+            <h2>$ aura-sui --roadmap</h2>
+            <div class="roadmap-card-list">
+                <div class="roadmap-card full-width">
+                    <h3>NFT Preview</h3>
+                    <div class="nft-slider">
+                        <img src="/images/aura_orb_9645.png" alt="NFT 1">
+                        <img src="/images/aura_orb_9649.png" alt="NFT 2">
+                        <img src="/images/aura_orb_9658.png" alt="NFT 3">
+                        <img src="/images/aura_orb_9659.png" alt="NFT 4">
+                        <img src="/images/aura_orb_9693.png" alt="NFT 5">
+                        <img src="/images/aura_orb_9713.png" alt="NFT 6">
+                        <img src="/images/aura_orb_9725.png" alt="NFT 7">
+                        <img src="/images/aura_orb_9756.png" alt="NFT 8">
+                        <img src="/images/aura_orb_9760.png" alt="NFT 9">
+                        <img src="/images/aura_orb_9767.png" alt="NFT 10">
+                        <img src="/images/aura_orb_9793.png" alt="NFT 11">
+                        <img src="/images/aura_orb_9817.png" alt="NFT 12">
+                        <img src="/images/aura_orb_9828.png" alt="NFT 13">
+                        <img src="/images/aura_orb_9868.png" alt="NFT 14">
+                        <img src="/images/aura_orb_9883.png" alt="NFT 15">
+                        <img src="/images/aura_orb_9903.png" alt="NFT 16">
+                        <img src="/images/aura_orb_9924.png" alt="NFT 17">
+                        <img src="/images/aura_orb_9949.png" alt="NFT 18">
+                        <img src="/images/aura_orb_9951.png" alt="NFT 19">
+                        <img src="/images/aura_orb_9954.png" alt="NFT 20">
+                        <img src="/images/aura_orb_9971.png" alt="NFT 21">
+                        <img src="/images/aura_orb_9988.png" alt="NFT 22">
+                        <img src="/images/aura_orb_9991.png" alt="NFT 23">
+                        <img src="/images/aura_orb_9997.png" alt="NFT 24">
+                        <img src="/images/aura_orb_9645.png" alt="NFT 1">
+                        <img src="/images/aura_orb_9649.png" alt="NFT 2">
+                        <img src="/images/aura_orb_9658.png" alt="NFT 3">
+                        <img src="/images/aura_orb_9659.png" alt="NFT 4">
+                        <img src="/images/aura_orb_9693.png" alt="NFT 5">
+                        <img src="/images/aura_orb_9713.png" alt="NFT 6">
+                        <img src="/images/aura_orb_9725.png" alt="NFT 7">
+                        <img src="/images/aura_orb_9756.png" alt="NFT 8">
+                        <img src="/images/aura_orb_9760.png" alt="NFT 9">
+                        <img src="/images/aura_orb_9767.png" alt="NFT 10">
+                        <img src="/images/aura_orb_9793.png" alt="NFT 11">
+                        <img src="/images/aura_orb_9817.png" alt="NFT 12">
+                        <img src="/images/aura_orb_9828.png" alt="NFT 13">
+                        <img src="/images/aura_orb_9868.png" alt="NFT 14">
+                        <img src="/images/aura_orb_9883.png" alt="NFT 15">
+                        <img src="/images/aura_orb_9903.png" alt="NFT 16">
+                        <img src="/images/aura_orb_9924.png" alt="NFT 17">
+                        <img src="/images/aura_orb_9949.png" alt="NFT 18">
+                        <img src="/images/aura_orb_9951.png" alt="NFT 19">
+                        <img src="/images/aura_orb_9954.png" alt="NFT 20">
+                        <img src="/images/aura_orb_9971.png" alt="NFT 21">
+                        <img src="/images/aura_orb_9988.png" alt="NFT 22">
+                        <img src="/images/aura_orb_9991.png" alt="NFT 23">
+                        <img src="/images/aura_orb_9997.png" alt="NFT 24">
+                    </div>
+                </div>
+                <div class="roadmap-card">
+                    <div class="phase-badge">1</div>
+                    <h3>1</h3>
+                    <ul>
+                        <li>Token Launch: $AURA release.</li>
+                        <li>Community Building: Social channels, events.</li>
+                        <li>Single Player: Aura Frenzy solo mode.</li>
+                        <li>DEX Pre-paid: Funded $AURA TEAM.</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="phase-badge">2</div>
+                    <h3>2</h3>
+                    <ul>
+                        <li>NFT Whitelist: Early supporter access.</li>
+                        <li>Partnerships: Strategic alliances for $AURA.</li>
+                        <li>Marketing Campaign: Promote $AURA ecosystem.</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="phase-badge">3</div>
+                    <h3>3</h3>
+                    <ul>
+                        <li>Multiplayer Beta: Free-to-play, 1-2 days post-launch.</li>
+                        <li>NFT Public Mint: Open to all.</li>
+                        <li>Token Listings: $AURA on Suiscan, Suivision.</li>
+                        <li>Wallet Integration: Website connections in major wallets.</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="phase-badge">4</div>
+                    <h3>4</h3>
+                    <ul>
+                        <li>P2E with NFTs: Unlock multiplayer features.</li>
+                        <li>PVP Season 1: Live competitive events.</li>
+                        <li>Game Expansion: New multiplayer modes.</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <div class="phase-badge">5</div>
+                    <h3>5</h3>
+                    <ul>
+                        <li>Leaderboard: Big $AURA prizes at season end.</li>
+                        <li>Ecosystem Rewards: $AURA incentives for players.</li>
+                    </ul>
+                </div>
+                <div class="roadmap-card">
+                    <h3>$AURA NFT Benefits</h3>
+                    <ul>
+                        <li>Multiplayer Access: NFTs unlock PVP, driving $AURA demand.</li>
+                        <li>Unique Skills: NFTs grant special abilities, boosting gameplay.</li>
+                        <li>Exclusive Skins: Custom visuals.</li>
+                        <li>Token Value: NFT trading increases $AURA value, will be used in buy backs.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <button class="grab-button" onclick="grabPhone()">Initialize Mobile Interface</button>
         <a href="https://aurafrenzy.netlify.app/public/"><button class="game-button">PLAY AURA FRENZY</button></a>
@@ -497,7 +714,6 @@
                     <img src="https://img.icons8.com/material/64/ffffff/telegram-app.png" alt="Telegram">
                     <span>Telegram</span>
                 </div>
-
                 <div class="icon" id="videoIcon" onclick="openWindow('video')">
                     <img src="https://img.icons8.com/material/64/ffffff/video.png" alt="Video">
                     <span>Video</span>
@@ -530,7 +746,6 @@
                     <span>Browser</span>
                 </div>
             </div>
-
             <div class="window" id="galleryWindow">
                 <div class="window-header">
                     <span class="window-title">Gallery</span>
