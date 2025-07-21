@@ -265,7 +265,7 @@
             animation-play-state: paused;
         }
 
-        .mint-section {
+        .mint-section, .ai-agent-section {
             background: rgba(28, 37, 38, 0.95);
             border: 2px solid #00e0ff;
             border-radius: 12px;
@@ -283,14 +283,14 @@
             backdrop-filter: blur(5px);
         }
 
-        .mint-section h2 {
+        .mint-section h2, .ai-agent-section h2 {
             color: #00ff88;
             margin: 0 0 20px;
             font-size: 1.6em;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
         }
 
-        .mint-button {
+        .mint-button, .locked-utility-button, .ai-agent-button {
             background: linear-gradient(45deg, #00e0ff, #00ff88, #ffd54f);
             color: #1c2526;
             padding: 20px 60px;
@@ -306,7 +306,30 @@
             margin: 15px 0;
         }
 
-        .mint-button::before {
+        .locked-utility-button, .ai-agent-button {
+            background: linear-gradient(45deg, #4b4b4b, #2e2e2e, #1c2526);
+            color: #666;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .locked-utility-button::after, .ai-agent-button::after {
+            content: '🔒 LOCKED';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 1.2em;
+            color: #ffd54f;
+            text-shadow: 0 0 10px rgba(255, 213, 79, 0.8);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.7; }
+        }
+
+        .mint-button::before, .locked-utility-button::before, .ai-agent-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -326,8 +349,7 @@
             box-shadow: 0 15px 40px rgba(0, 224, 255, 0.9);
         }
 
-        .grab-button,
-        .game-button {
+        .grab-button, .game-button {
             background: linear-gradient(45deg, #00e0ff, #00ff88, #ffd54f);
             color: #1c2526;
             padding: 20px 60px;
@@ -347,8 +369,7 @@
             background: linear-gradient(45deg, #ff4d4d, #ffd54f, #00ff88);
         }
 
-        .grab-button::before,
-        .game-button::before {
+        .grab-button::before, .game-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -359,13 +380,11 @@
             transition: 0.5s;
         }
 
-        .grab-button:hover::before,
-        .game-button:hover::before {
+        .grab-button:hover::before, .game-button:hover::before {
             left: 100%;
         }
 
-        .grab-button:hover,
-        .game-button:hover {
+        .grab-button:hover, .game-button:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 40px rgba(0, 224, 255, 0.9);
         }
@@ -542,7 +561,8 @@
         .notes-content,
         .telegram-content,
         .video-content,
-        .camera-content {
+        .camera-content,
+        .ai-agent-content {
             text-align: center;
             color: #546e7a;
             font-size: 13px;
@@ -616,6 +636,11 @@
             <a href="https://www.tradeport.xyz/sui/collection/0x97663857326045760f770d1f6ea0d9038414b3d2e38dfb4e454efa24b331a100?tab=mint&bottomTab=trades" target="_blank">
                 <button class="mint-button">MINT YOUR AURA NFT</button>
             </a>
+        </div>
+        <div class="ai-agent-section">
+            <h2>$ aura-sui --ai-agent</h2>
+            <p>> AURA AI Agent: Your personal digital companion, powered by cosmic intelligence. Unlock this exclusive feature with your NFT to experience tailored strategies, real-time insights, and a guide through the AURA SUI universe. Coming soon...</p>
+            <button class="ai-agent-button" onclick="showLockedMessage('AI Agent')">ACTIVATE AI AGENT</button>
         </div>
         <div class="roadmap">
             <h2>$ aura-sui --future-vision</h2>
@@ -732,14 +757,15 @@
         </div>
         <button class="grab-button" onclick="grabPhone()">Enter Mobile Nexus</button>
         <a href="https://aurafrenzy.netlify.app/public/" target="_blank"><button class="game-button">UNLEASH AURA FRENZY</button></a>
+        <button class="locked-utility-button" onclick="showLockedMessage('Exclusive Utility')">ACCESS EXCLUSIVE UTILITY</button>
     </div>
     <div class="phone" id="phone" style="display: none;">
         <div class="status-bar">
-            <span id="currentTime">13:30</span>
+            <span id="currentTime">16:30</span>
             <span>🔋 100%</span>
         </div>
         <div class="home-screen" id="homeScreen">
-            <div class="time-widget" id="timeWidget">13:30</div>
+            <div class="time-widget" id="timeWidget">16:30</div>
             <div class="app-grid">
                 <div class="icon" onclick="window.open('https://t.me/auraonsuiportal', '_blank')">
                     <img src="https://img.icons8.com/material/64/ffffff/telegram-app.png" alt="Telegram">
@@ -771,9 +797,9 @@
                     <img src="https://freelogopng.com/images/all_img/1690643591twitter-x-logo-png.png" alt="X">
                     <span>X</span>
                 </div>
-                <div class="icon" onclick="openWindow('browser')">
-                    <img src="https://img.icons8.com/material/64/ffffff/chrome.png" alt="Browser">
-                    <span>Browser</span>
+                <div class="icon" onclick="openWindow('ai-agent')">
+                    <img src="https://img.icons8.com/material/64/ffffff/bot.png" alt="AI Agent">
+                    <span>AI Agent</span>
                 </div>
             </div>
             <div class="window" id="galleryWindow">
@@ -866,6 +892,17 @@
                     <textarea placeholder="Input data stream for persistent storage..."></textarea>
                 </div>
             </div>
+            <div class="window" id="aiAgentWindow">
+                <div class="window-header">
+                    <span class="window-title">AI Agent</span>
+                    <div class="window-buttons">
+                        <button onclick="closeWindow('ai-agent')"></button>
+                    </div>
+                </div>
+                <div class="window-content ai-agent-content">
+                    <p>🔒 AI Agent locked. Mint an AURA SUI NFT to unlock your cosmic companion.</p>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -911,6 +948,10 @@
         function closeWindow(id) {
             const window = document.getElementById(`${id}Window`);
             window.style.display = 'none';
+        }
+
+        function showLockedMessage(feature) {
+            alert(`${feature} is locked. Mint an AURA SUI NFT to unlock this exclusive feature!`);
         }
 
         function getMaxZIndex() {
