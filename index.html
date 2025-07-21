@@ -265,7 +265,7 @@
             animation-play-state: paused;
         }
 
-        .mint-section, .ai-agent-section {
+        .mint-section, .ai-agent-section, .mini-game-section {
             background: rgba(28, 37, 38, 0.95);
             border: 2px solid #00e0ff;
             border-radius: 12px;
@@ -283,14 +283,14 @@
             backdrop-filter: blur(5px);
         }
 
-        .mint-section h2, .ai-agent-section h2 {
+        .mint-section h2, .ai-agent-section h2, .mini-game-section h2 {
             color: #00ff88;
             margin: 0 0 20px;
             font-size: 1.6em;
             text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
         }
 
-        .mint-button, .locked-utility-button, .ai-agent-button {
+        .mint-button, .locked-utility-button, .ai-agent-button, .start-game-button {
             background: linear-gradient(45deg, #00e0ff, #00ff88, #ffd54f);
             color: #1c2526;
             padding: 20px 60px;
@@ -329,7 +329,7 @@
             50% { opacity: 0.7; }
         }
 
-        .mint-button::before, .locked-utility-button::before, .ai-agent-button::before {
+        .mint-button::before, .locked-utility-button::before, .ai-agent-button::before, .start-game-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -340,11 +340,11 @@
             transition: 0.5s;
         }
 
-        .mint-button:hover::before {
+        .mint-button:hover::before, .start-game-button:hover::before {
             left: 100%;
         }
 
-        .mint-button:hover {
+        .mint-button:hover, .start-game-button:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 40px rgba(0, 224, 255, 0.9);
         }
@@ -586,6 +586,52 @@
             font-size: 13px;
             padding: 12px;
         }
+
+        .mini-game-section {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .game-area {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00e0ff;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pulse-orb {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #00ff88, #00e0ff);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 224, 255, 0.9);
+            cursor: pointer;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+        }
+
+        .game-info span {
+            font-family: 'Roboto Mono', monospace;
+        }
     </style>
 </head>
 <body>
@@ -639,65 +685,13 @@
         </div>
         <div class="ai-agent-section">
             <h2>$ aura-sui --ai-agent</h2>
-            <p>> AURA AI Agent: Your personal digital companion, powered by cosmic intelligence. Unlock this exclusive feature with your NFT to experience tailored strategies, real-time insights, and a guide through the AURA SUI universe. Coming soon...</p>
+            <p>> AURA AI Agent: Your personal digital companion, powered by cosmic intelligence. This feature is currently locked. Stay tuned for activation...</p>
             <button class="ai-agent-button" onclick="showLockedMessage('AI Agent')">ACTIVATE AI AGENT</button>
         </div>
         <div class="roadmap">
             <h2>$ aura-sui --future-vision</h2>
             <div class="roadmap-card-list">
-                <div class="roadmap-card full-width">
-                    <h3>NFT Preview</h3>
-                    <div class="nft-slider">
-                        <img src="/images/aura_orb_9645.png" alt="NFT 1">
-                        <img src="/images/aura_orb_9649.png" alt="NFT 2">
-                        <img src="/images/aura_orb_9658.png" alt="NFT 3">
-                        <img src="/images/aura_orb_9659.png" alt="NFT 4">
-                        <img src="/images/aura_orb_9693.png" alt="NFT 5">
-                        <img src="/images/aura_orb_9713.png" alt="NFT 6">
-                        <img src="/images/aura_orb_9725.png" alt="NFT 7">
-                        <img src="/images/aura_orb_9756.png" alt="NFT 8">
-                        <img src="/images/aura_orb_9760.png" alt="NFT 9">
-                        <img src="/images/aura_orb_9767.png" alt="NFT 10">
-                        <img src="/images/aura_orb_9793.png" alt="NFT 11">
-                        <img src="/images/aura_orb_9817.png" alt="NFT 12">
-                        <img src="/images/aura_orb_9828.png" alt="NFT 13">
-                        <img src="/images/aura_orb_9868.png" alt="NFT 14">
-                        <img src="/images/aura_orb_9883.png" alt="NFT 15">
-                        <img src="/images/aura_orb_9903.png" alt="NFT 16">
-                        <img src="/images/aura_orb_9924.png" alt="NFT 17">
-                        <img src="/images/aura_orb_9949.png" alt="NFT 18">
-                        <img src="/images/aura_orb_9951.png" alt="NFT 19">
-                        <img src="/images/aura_orb_9954.png" alt="NFT 20">
-                        <img src="/images/aura_orb_9971.png" alt="NFT 21">
-                        <img src="/images/aura_orb_9988.png" alt="NFT 22">
-                        <img src="/images/aura_orb_9991.png" alt="NFT 23">
-                        <img src="/images/aura_orb_9997.png" alt="NFT 24">
-                        <img src="/images/aura_orb_9645.png" alt="NFT 1">
-                        <img src="/images/aura_orb_9649.png" alt="NFT 2">
-                        <img src="/images/aura_orb_9658.png" alt="NFT 3">
-                        <img src="/images/aura_orb_9659.png" alt="NFT 4">
-                        <img src="/images/aura_orb_9693.png" alt="NFT 5">
-                        <img src="/images/aura_orb_9713.png" alt="NFT 6">
-                        <img src="/images/aura_orb_9725.png" alt="NFT 7">
-                        <img src="/images/aura_orb_9756.png" alt="NFT 8">
-                        <img src="/images/aura_orb_9760.png" alt="NFT 9">
-                        <img src="/images/aura_orb_9767.png" alt="NFT 10">
-                        <img src="/images/aura_orb_9793.png" alt="NFT 11">
-                        <img src="/images/aura_orb_9817.png" alt="NFT 12">
-                        <img src="/images/aura_orb_9828.png" alt="NFT 13">
-                        <img src="/images/aura_orb_9868.png" alt="NFT 14">
-                        <img src="/images/aura_orb_9883.png" alt="NFT 15">
-                        <img src="/images/aura_orb_9903.png" alt="NFT 16">
-                        <img src="/images/aura_orb_9924.png" alt="NFT 17">
-                        <img src="/images/aura_orb_9949.png" alt="NFT 18">
-                        <img src="/images/aura_orb_9951.png" alt="NFT 19">
-                        <img src="/images/aura_orb_9954.png" alt="NFT 20">
-                        <img src="/images/aura_orb_9971.png" alt="NFT 21">
-                        <img src="/images/aura_orb_9988.png" alt="NFT 22">
-                        <img src="/images/aura_orb_9991.png" alt="NFT 23">
-                        <img src="/images/aura_orb_9997.png" alt="NFT 24">
-                    </div>
-                </div>
+               
                 <div class="roadmap-card">
                     <div class="phase-badge">1</div>
                     <h3>Phase 1: Ignition</h3>
@@ -709,6 +703,7 @@
                     </ul>
                 </div>
                 <div class="roadmap-card">
+adiator
                     <div class="phase-badge">2</div>
                     <h3>Phase 2: Ascension</h3>
                     <ul>
@@ -758,14 +753,24 @@
         <button class="grab-button" onclick="grabPhone()">Enter Mobile Nexus</button>
         <a href="https://aurafrenzy.netlify.app/public/" target="_blank"><button class="game-button">UNLEASH AURA FRENZY</button></a>
         <button class="locked-utility-button" onclick="showLockedMessage('Exclusive Utility')">ACCESS EXCLUSIVE UTILITY</button>
+        <!-- <div class="mini-game-section">
+            <h2>$ aura-sui --pulse-training</h2>
+            <p>> Test your reflexes with *Aura Pulse*. Click the glowing data pulses to score points before the timer runs out. Prepare for the AURA SUI universe!</p>
+            <div class="game-area" id="gameArea"></div>
+            <div class="game-info">
+                <span>Score: <span id="score">0</span></span>
+                <span>Time: <span id="timer">30</span>s</span>
+            </div>
+            <button class="start-game-button" onclick="startGame()">START AURA PULSE</button>
+        </div> -->
     </div>
     <div class="phone" id="phone" style="display: none;">
         <div class="status-bar">
-            <span id="currentTime">16:30</span>
+            <span id="currentTime">16:40</span>
             <span>🔋 100%</span>
         </div>
         <div class="home-screen" id="homeScreen">
-            <div class="time-widget" id="timeWidget">16:30</div>
+            <div class="time-widget" id="timeWidget">16:40</div>
             <div class="app-grid">
                 <div class="icon" onclick="window.open('https://t.me/auraonsuiportal', '_blank')">
                     <img src="https://img.icons8.com/material/64/ffffff/telegram-app.png" alt="Telegram">
@@ -900,7 +905,7 @@
                     </div>
                 </div>
                 <div class="window-content ai-agent-content">
-                    <p>🔒 AI Agent locked. Mint an AURA SUI NFT to unlock your cosmic companion.</p>
+                    <p>🔒 AI Agent is currently locked. Stay tuned for activation...</p>
                 </div>
             </div>
         </div>
@@ -951,7 +956,7 @@
         }
 
         function showLockedMessage(feature) {
-            alert(`${feature} is locked. Mint an AURA SUI NFT to unlock this exclusive feature!`);
+            alert(`${feature} is currently locked. Stay tuned for updates!`);
         }
 
         function getMaxZIndex() {
@@ -994,6 +999,54 @@
                 isDragging = false;
             });
         });
+
+        // Mini-game logic
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = false;
+        let orbInterval;
+
+        function startGame() {
+            if (gameActive) return;
+            gameActive = true;
+            score = 0;
+            timeLeft = 30;
+            document.getElementById('score').textContent = score;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('start-game-button').disabled = true;
+            document.getElementById('gameArea').innerHTML = '';
+            orbInterval = setInterval(createOrb, 1000);
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(orbInterval);
+                    clearInterval(timerInterval);
+                    gameActive = false;
+                    document.getElementById('start-game-button').disabled = false;
+                    alert(`Game Over! Your score: ${score}. Try again to beat your record!`);
+                }
+            }, 1000);
+        }
+
+        function createOrb() {
+            const gameArea = document.getElementById('gameArea');
+            const orb = document.createElement('div');
+            orb.className = 'pulse-orb';
+            orb.style.left = `${Math.random() * (gameArea.offsetWidth - 30)}px`;
+            orb.style.top = `${Math.random() * (gameArea.offsetHeight - 30)}px`;
+            orb.addEventListener('click', () => {
+                if (gameActive) {
+                    score++;
+                    document.getElementById('score').textContent = score;
+                    orb.remove();
+                }
+            });
+            gameArea.appendChild(orb);
+            setTimeout(() => {
+                if (orb.parentNode) orb.remove();
+            }, 2000);
+        }
     </script>
 </body>
 </html>
