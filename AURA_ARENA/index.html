@@ -44,55 +44,79 @@
             align-self: center;
         }
 
-        @media  (max-width: 768px) {
-                    #video-container {
-            display: none;
-            margin-top: 20px;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-        }
-            
-            
+        @media (max-width: 768px) {
+            #video-container {
+                display: none;
+                margin-top: 20px;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="countdown-container">Game starts in <span id="countdown">10:00</span></div>
+    <div id="countdown-container">Game starts in <span id="countdown"></span></div>
     <div id="game-container">
         <h1>Aura-Frenzy</h1>
         <!-- <canvas id="game-canvas" width="800" height="400"></canvas> -->
     </div>
     <div id="video-container">
-    <video id="game-video" autoplay muted playsinline>
-        <source src="./media/first_fight.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
+        <video id="game-video" autoplay muted playsinline>
+            <source src="./media/first_fight.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <script>
         // Countdown Timer
-        let timeLeft = 600; // 1 minute in seconds
         const countdownElement = document.getElementById('countdown');
         const countdownContainer = document.getElementById('countdown-container');
         const gameContainer = document.getElementById('game-container');
         const videoContainer = document.getElementById('video-container');
+        const totalCountdownTime = 600; // 10 minutes in seconds
 
-        const countdown = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            timeLeft--;
+        // Get or set the countdown start time in localStorage
+        let startTime = localStorage.getItem('countdownStartTime');
+        if (!startTime) {
+            startTime = Date.now();
+            localStorage.setItem('countdownStartTime', startTime);
+        } else {
+            startTime = parseInt(startTime, 10);
+        }
 
-            if (timeLeft < 0) {
-                clearInterval(countdown);
-                countdownContainer.style.display = 'none';
-                gameContainer.style.display = 'block';
-                videoContainer.style.display = 'flex';
-                startGame();
-            }
-        }, 1000);
+        // Calculate initial time left based on stored start time
+        let timeLeft = Math.max(
+            0,
+            totalCountdownTime - Math.floor((Date.now() - startTime) / 1000)
+        );
+
+        // If time is already up, skip countdown
+        if (timeLeft <= 0) {
+            countdownContainer.style.display = 'none';
+            gameContainer.style.display = 'block';
+            videoContainer.style.display = 'flex';
+            startGame();
+        } else {
+            // Start countdown
+            const countdown = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                countdownElement.textContent = `${minutes
+                    .toString()
+                    .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(countdown);
+                    countdownContainer.style.display = 'none';
+                    gameContainer.style.display = 'block';
+                    videoContainer.style.display = 'flex';
+                    localStorage.removeItem('countdownStartTime'); // Clear stored time
+                    startGame();
+                }
+            }, 1000);
+        }
 
         // Game Logic (Simple Particle Animation for Aura Effect)
         const canvas = document.getElementById('game-canvas');
