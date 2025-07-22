@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura-Frenzy Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        #countdown-container {
+            position: absolute;
+            top: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+        #game-container {
+            display: none;
+            text-align: center;
+        }
+        #game-canvas {
+            border: 2px solid #00ffcc;
+        }
+        #video-container {
+            display: none;
+            margin-top: 20px;
+            width: 60%;
+            justify-content: center;
+        }
+        #game-video {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ffcc;
+            align-items: center;
+            align-self: center;
+        }
+
+        @media  (max-width: 768px) {
+                    #video-container {
+            display: none;
+            margin-top: 20px;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+        }
+            
+            
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown-container">Game starts in <span id="countdown">10:00</span></div>
+    <div id="game-container">
+        <h1>Aura-Frenzy</h1>
+        <!-- <canvas id="game-canvas" width="800" height="400"></canvas> -->
+    </div>
+    <div id="video-container">
+    <video id="game-video" autoplay muted playsinline>
+        <source src="./media/first_fight.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    </div>
+
+    <script>
+        // Countdown Timer
+        let timeLeft = 600; // 1 minute in seconds
+        const countdownElement = document.getElementById('countdown');
+        const countdownContainer = document.getElementById('countdown-container');
+        const gameContainer = document.getElementById('game-container');
+        const videoContainer = document.getElementById('video-container');
+
+        const countdown = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                countdownContainer.style.display = 'none';
+                gameContainer.style.display = 'block';
+                videoContainer.style.display = 'flex';
+                startGame();
+            }
+        }, 1000);
+
+        // Game Logic (Simple Particle Animation for Aura Effect)
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = `hsl(${Math.random() * 360}, 70%, 50%)`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function startGame() {
+            // Initialize particles
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+                if (particle.size <= 0.2) {
+                    particles.splice(index, 1);
+                    particles.push(new Particle());
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+    </script>
+</body>
+</html>
